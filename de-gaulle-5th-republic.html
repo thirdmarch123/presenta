@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="slides-format" content="viewport">
+    <title>Шарль де Голль — Пятая Республика: конституционные реформы</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-base: #0f172a;
+            --bg-deep: #020617;
+            --bg-surface: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-1: #1E40AF;
+            --accent-2: #DC2626;
+            --accent-3: #F1F5F9;
+            --grad-bg: linear-gradient(135deg, var(--bg-base) 0%, var(--bg-surface) 100%);
+            --grad-deep: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-base) 50%, var(--bg-surface) 100%);
+            --grad-accent: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-blur: 12px;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Source Sans 3', sans-serif;
+            --glow-color-rgb: 30, 64, 175;
+            --slide-padding: clamp(1.5rem, 4vw, 4rem);
+            --content-gap: clamp(0.75rem, 2vw, 2rem);
+            --title-size: clamp(1.5rem, 5vw, 4rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+            --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: #0d0d0d;
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .deck {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            pointer-events: none;
+            overflow: hidden;
+            background: var(--grad-bg);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: all;
+        }
+
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-3);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .slide-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .slide-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .slide-dots .dot.active {
+            background: var(--accent-1);
+            transform: scale(1.3);
+        }
+
+        .slide-counter {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .slide.active .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .slide.active .delay-1 {
+            animation-delay: 0.1s;
+            opacity: 0;
+        }
+
+        .slide.active .delay-2 {
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .slide.active .delay-3 {
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        .slide.active .delay-4 {
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        .slide.active .delay-5 {
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+
+        .slide.active .delay-6 {
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+
+        @keyframes float-slow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            25% {
+                transform: translate(60px, -50px) scale(1.12);
+            }
+
+            50% {
+                transform: translate(-40px, 40px) scale(0.9);
+            }
+
+            75% {
+                transform: translate(50px, 20px) scale(1.08);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        @keyframes float-drift {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(-50px, -60px) scale(1.15) rotate(3deg);
+            }
+
+            66% {
+                transform: translate(40px, 30px) scale(0.88) rotate(-2deg);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes float-orbit {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            20% {
+                transform: translate(70px, -20px) scale(1.1);
+            }
+
+            40% {
+                transform: translate(30px, -70px) scale(0.95);
+            }
+
+            60% {
+                transform: translate(-50px, -40px) scale(1.08);
+            }
+
+            80% {
+                transform: translate(-30px, 30px) scale(0.92);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        .gradient-mesh {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float-slow 10s ease-in-out infinite;
+        }
+
+        .blob:nth-child(2) {
+            animation: float-drift 14s ease-in-out infinite;
+        }
+
+        .blob:nth-child(3) {
+            animation: float-orbit 18s ease-in-out infinite;
+        }
+
+        .blob:nth-child(4) {
+            animation: float-slow 12s ease-in-out infinite reverse;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1100px;
+            padding: var(--slide-padding);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.75rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 600;
+        }
+
+        p,
+        li {
+            font-family: var(--font-body);
+            color: var(--text-secondary);
+            font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+            line-height: 1.6;
+        }
+
+        .gradient-text {
+            background: var(--grad-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .uppercase-tracked {
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(var(--glow-color-rgb), 0.5), 0 0 40px rgba(var(--glow-color-rgb), 0.2);
+        }
+
+        .card-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .card-accent-left {
+            border-left: 4px solid;
+            border-image: var(--grad-accent) 1;
+            padding: 1.2rem 1.5rem;
+            background: var(--glass-bg);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .card-accent-top {
+            border-top: 3px solid;
+            border-image: var(--grad-accent) 1;
+            padding: 1.2rem 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: 0 0 12px 12px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .flag-stripe {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            display: flex;
+        }
+
+        .flag-stripe .blue {
+            flex: 1;
+            background: #002395;
+        }
+
+        .flag-stripe .white {
+            flex: 1;
+            background: #ffffff;
+        }
+
+        .flag-stripe .red {
+            flex: 1;
+            background: #ED2939;
+        }
+
+        .slide-1 .emoji-hero {
+            font-size: 100px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .slide-1 h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #F1F5F9, #94A3B8, #F1F5F9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            letter-spacing: -2px;
+        }
+
+        .slide-1 .subtitle {
+            font-size: clamp(0.85rem, 1.4vw, 1.3rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-1), var(--accent-2));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 18px;
+        }
+
+        .timeline-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-1);
+            box-shadow: 0 0 12px rgba(var(--glow-color-rgb), 0.5);
+            flex-shrink: 0;
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--accent-3);
+            min-width: 120px;
+            text-align: right;
+            font-size: clamp(0.8rem, 1.2vw, 1rem);
+        }
+
+        .timeline-text {
+            color: var(--text-secondary);
+            font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+        }
+
+        ul.styled-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul.styled-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: clamp(0.8rem, 1.3vw, 1rem);
+        }
+
+        ul.styled-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-1);
+            font-weight: bold;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--accent-3);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+            opacity: 0.03;
+            mix-blend-mode: overlay;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .content {
+                max-height: calc(100vh - 90px);
+                overflow-y: auto;
+                padding: 1.5rem;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .content::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            .content::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 4px;
+            }
+
+            .content::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 4px;
+            }
+
+            .slide-1 .emoji-hero {
+                font-size: 60px;
+                margin-bottom: 12px;
+            }
+
+            .nav-controls {
+                bottom: 12px;
+                padding: 8px 16px;
+                width: 90%;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .slide-dots {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .slide-dots .dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .timeline-line {
+                left: 14px;
+                transform: none;
+            }
+
+            .timeline-date {
+                text-align: left;
+                min-width: unset;
+                margin-left: 24px;
+            }
+
+            .timeline-item .card-glass {
+                margin-left: 24px;
+                width: calc(100% - 24px);
+            }
+
+            .timeline-dot {
+                position: absolute;
+                left: 7px;
+            }
+
+            .card-glass,
+            .card-accent-left,
+            .card-accent-top {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="deck">
+
+        <!-- SLIDE 1: TITLE -->
+        <div class="slide slide-1 active" data-slide="1">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 500px; height: 500px; top: -100px; right: -100px; background: var(--accent-1); opacity: 0.15;">
+                </div>
+                <div class="blob"
+                    style="width: 300px; height: 300px; bottom: -80px; left: -60px; background: var(--accent-2); opacity: 0.12;">
+                </div>
+                <div class="blob"
+                    style="width: 200px; height: 200px; top: 40%; left: 15%; background: #F1F5F9; opacity: 0.05;"></div>
+            </div>
+            <canvas class="particle-canvas" style="position: absolute; inset: 0; z-index: 1;"></canvas>
+            <div class="content" style="text-align: center;">
+                <div class="emoji-hero">🇫🇷</div>
+                <h1>Шарль де Голль</h1>
+                <p class="subtitle" style="margin-bottom: 12px;">Пятая Республика: конституционные реформы</p>
+                <p
+                    style="color: rgba(255,255,255,0.4); font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase;">
+                    Специфика французской школы ГАУ<br>
+                    Подготовил: Молдажанов Руслан
+                </p>
+            </div>
+            <div class="flag-stripe">
+                <div class="blue"></div>
+                <div class="white"></div>
+                <div class="red"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: AGENDA -->
+        <div class="slide slide-2" data-slide="2">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 350px; height: 350px; top: -80px; right: -80px; background: var(--accent-1); opacity: 0.08;">
+                </div>
+                <div class="blob"
+                    style="width: 250px; height: 250px; bottom: -60px; left: -40px; background: var(--accent-2); opacity: 0.06;">
+                </div>
+            </div>
+            <div class="content">
+                <h2 class="animate-in delay-1" style="margin-bottom: 30px;"><span
+                        class="gradient-text">Содержание</span></h2>
+                <div class="grid-2 animate-in delay-2" style="gap: 18px;">
+                    <div class="card-glass" style="display: flex; align-items: center; gap: 16px; padding: 16px 20px;">
+                        <span
+                            style="background: var(--grad-accent); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0;">1</span>
+                        <div>
+                            <h3 style="font-size: 0.95rem; margin-bottom: 2px;">Французская школа ГАУ</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Специфика и ключевые теории</p>
+                        </div>
+                    </div>
+                    <div class="card-glass" style="display: flex; align-items: center; gap: 16px; padding: 16px 20px;">
+                        <span
+                            style="background: var(--grad-accent); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0;">2</span>
+                        <div>
+                            <h3 style="font-size: 0.95rem; margin-bottom: 2px;">Кризис IV Республики</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Предпосылки реформ де Голля</p>
+                        </div>
+                    </div>
+                    <div class="card-glass" style="display: flex; align-items: center; gap: 16px; padding: 16px 20px;">
+                        <span
+                            style="background: var(--grad-accent); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0;">3</span>
+                        <div>
+                            <h3 style="font-size: 0.95rem; margin-bottom: 2px;">Конституция 1958 г.</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Основные положения</p>
+                        </div>
+                    </div>
+                    <div class="card-glass" style="display: flex; align-items: center; gap: 16px; padding: 16px 20px;">
+                        <span
+                            style="background: var(--grad-accent); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0;">4</span>
+                        <div>
+                            <h3 style="font-size: 0.95rem; margin-bottom: 2px;">Полномочия президента</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Новая роль главы государства</p>
+                        </div>
+                    </div>
+                    <div class="card-glass" style="display: flex; align-items: center; gap: 16px; padding: 16px 20px;">
+                        <span
+                            style="background: var(--grad-accent); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0;">5</span>
+                        <div>
+                            <h3 style="font-size: 0.95rem; margin-bottom: 2px;">Референдум 1962 г.</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Прямые выборы президента</p>
+                        </div>
+                    </div>
+                    <div class="card-glass" style="display: flex; align-items: center; gap: 16px; padding: 16px 20px;">
+                        <span
+                            style="background: var(--grad-accent); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0;">6</span>
+                        <div>
+                            <h3 style="font-size: 0.95rem; margin-bottom: 2px;">Дальнейшие реформы</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">От квинквенната до 2008 г.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: FRENCH SCHOOL OF GAU -->
+        <div class="slide slide-3" data-slide="3">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 400px; height: 400px; top: -100px; left: -80px; background: var(--accent-1); opacity: 0.08;">
+                </div>
+                <div class="blob"
+                    style="width: 300px; height: 300px; bottom: -60px; right: -60px; background: var(--accent-2); opacity: 0.06;">
+                </div>
+            </div>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 1</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 24px;"><span class="gradient-text">Французская
+                        школа ГАУ</span></h2>
+                <div class="grid-2 animate-in delay-2">
+                    <div class="card-accent-left" style="border-image: linear-gradient(to bottom, #1E40AF, #3B82F6) 1;">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 8px;">🏛️ Теория институтов</h3>
+                        <p style="font-size: 0.85rem;">Государство — не просто юридическое лицо, а <strong>институт, в
+                                котором воплощается власть</strong>. Правящая элита — лишь «агент» высшей власти,
+                            ограниченный правовым полем (М. Прело, М. Дюверже)</p>
+                    </div>
+                    <div class="card-accent-left" style="border-image: linear-gradient(to bottom, #DC2626, #EF4444) 1;">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 8px;">⚙️ Классическая школа Файоля</h3>
+                        <p style="font-size: 0.85rem;">Анри Файоль (1916): «Управлять — значит предвидеть,
+                            организовывать, распоряжаться, координировать и контролировать». <strong>14 принципов
+                                управления</strong> — универсальны для любых организаций</p>
+                    </div>
+                </div>
+                <div class="grid-2 animate-in delay-3" style="margin-top: 18px;">
+                    <div class="card-accent-left" style="border-image: linear-gradient(to bottom, #1E40AF, #3B82F6) 1;">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 8px;">🔍 Проблема децентрализации</h3>
+                        <p style="font-size: 0.85rem;">П. Авриль, Э. Фор: рассредоточение власти между уровнями,
+                            расширение полномочий муниципалитетов, контроль бюрократии</p>
+                    </div>
+                    <div class="card-accent-left" style="border-image: linear-gradient(to bottom, #DC2626, #EF4444) 1;">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 8px;">🎓 ENA — кузница элит</h3>
+                        <p style="font-size: 0.85rem;">Создана де Голлем в 1945 г. для демократизации доступа к высшим
+                            должностям. 2 президента, 7 премьер-министров — выпускники школы</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: SPECIFICS OF FRENCH SCHOOL -->
+        <div class="slide slide-4" data-slide="4">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 350px; height: 350px; top: -80px; right: -80px; background: var(--accent-1); opacity: 0.08;">
+                </div>
+                <div class="blob"
+                    style="width: 250px; height: 250px; bottom: -60px; left: -40px; background: var(--accent-2); opacity: 0.06;">
+                </div>
+            </div>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 1</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 24px;"><span class="gradient-text">Специфика
+                        французской школы</span></h2>
+                <ul class="styled-list animate-in delay-2" style="margin-bottom: 20px;">
+                    <li>Развилась из науки <strong>конституционного права</strong> (с конца XIX в.) — в отличие от
+                        американской и английской школ</li>
+                    <li>Преодолела формализм: изучает не только юридические нормы, но и их <strong>фактическую
+                            реализацию</strong></li>
+                    <li>Институциональная концепция: власть перемещается от правящих к институту, действия ограничены
+                        правом</li>
+                    <li><strong>Близость науки к политической практике</strong> — от Вольтера до Жискар д'Эстена</li>
+                    <li>Ключевая проблема: оптимальная взаимосвязь государственного аппарата и граждан</li>
+                </ul>
+                <div class="card-glass animate-in delay-3"
+                    style="border-left: 4px solid var(--accent-2); padding: 14px 20px;">
+                    <p style="font-style: italic; font-size: 0.9rem;">«Необходимо, чтобы какая-то государственная
+                        организация обеспечивала связь между властью и гражданами — до сих пор эта проблема не решена»
+                    </p>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">— П. Авриль, «Правительство
+                        Франции»</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: CRISIS OF IV REPUBLIC -->
+        <div class="slide slide-5" data-slide="5">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 400px; height: 400px; top: -100px; left: -100px; background: var(--accent-2); opacity: 0.10;">
+                </div>
+                <div class="blob"
+                    style="width: 300px; height: 300px; bottom: -80px; right: -60px; background: var(--accent-1); opacity: 0.07;">
+                </div>
+            </div>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 2</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 24px;"><span class="gradient-text">Кризис IV
+                        Республики</span></h2>
+                <div class="grid-3 animate-in delay-2" style="margin-bottom: 20px;">
+                    <div class="card-glass" style="text-align: center; padding: 20px;">
+                        <div class="stat-number text-glow">24</div>
+                        <p style="font-size: 0.85rem; margin-top: 4px;">правительства за 12 лет (1946–1958)</p>
+                    </div>
+                    <div class="card-glass" style="text-align: center; padding: 20px;">
+                        <div class="stat-number text-glow" style="color: var(--accent-2);">⚔️</div>
+                        <p style="font-size: 0.85rem; margin-top: 4px;">Алжирский кризис 1958 г. — угроза гражданской
+                            войны</p>
+                    </div>
+                    <div class="card-glass" style="text-align: center; padding: 20px;">
+                        <div class="stat-number text-glow">∅</div>
+                        <p style="font-size: 0.85rem; margin-top: 4px;">Слабая исполнительная власть — «система партий»
+                        </p>
+                    </div>
+                </div>
+                <div class="card-accent-left animate-in delay-3"
+                    style="border-image: linear-gradient(to bottom, #DC2626, #1E40AF) 1;">
+                    <h3 style="font-size: 0.95rem; margin-bottom: 6px;">Три условия де Голля для возвращения к власти (1
+                        июня 1958)</h3>
+                    <ul class="styled-list">
+                        <li>Неограниченные полномочия для урегулирования Алжирского кризиса</li>
+                        <li>Управление страной декретами в течение 6 месяцев, роспуск парламента на каникулы</li>
+                        <li>Делегирование учредительной власти для разработки новой Конституции</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: CONSTITUTION 1958 -->
+        <div class="slide slide-6" data-slide="6">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 350px; height: 350px; top: -80px; right: -80px; background: var(--accent-1); opacity: 0.10;">
+                </div>
+                <div class="blob"
+                    style="width: 250px; height: 250px; bottom: -60px; left: -40px; background: var(--accent-2); opacity: 0.07;">
+                </div>
+            </div>
+            <canvas class="particle-canvas-ambient" style="position: absolute; inset: 0; z-index: 1;"></canvas>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 3</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 24px;"><span class="gradient-text">Конституция 1958
+                        г.</span></h2>
+                <div class="grid-2 animate-in delay-2" style="margin-bottom: 18px;">
+                    <div class="card-glass" style="text-align: center;">
+                        <div class="stat-number text-glow" style="font-size: 2.5rem;">28.09.1958</div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Дата референдума</p>
+                    </div>
+                    <div class="card-glass" style="text-align: center;">
+                        <div class="stat-number text-glow" style="font-size: 2.5rem; color: #22C55E;">≈80%</div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Поддержка «за»</p>
+                    </div>
+                </div>
+                <div class="card-accent-left animate-in delay-3"
+                    style="border-image: linear-gradient(to bottom, #1E40AF, #DC2626) 1;">
+                    <h3 style="font-size: 0.95rem; margin-bottom: 8px;">Главные принципы</h3>
+                    <ul class="styled-list">
+                        <li>Республика <strong>президентского типа</strong> правления — вместо парламентского</li>
+                        <li>Расширение прерогатив исполнительной власти за счёт законодательной</li>
+                        <li>Разработчик проекта — Мишель Дебре (глава группы членов Госсовета)</li>
+                        <li>Приверженность Декларации прав 1789 г. и преамбуле Конституции 1946 г.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: PRESIDENTIAL POWERS -->
+        <div class="slide slide-7" data-slide="7">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 400px; height: 400px; top: -100px; left: -80px; background: var(--accent-1); opacity: 0.08;">
+                </div>
+                <div class="blob"
+                    style="width: 250px; height: 250px; bottom: -50px; right: -50px; background: var(--accent-2); opacity: 0.06;">
+                </div>
+            </div>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 4</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 20px;"><span class="gradient-text">Полномочия
+                        Президента</span></h2>
+                <div class="grid-2 animate-in delay-2">
+                    <div>
+                        <div class="card-accent-top" style="margin-bottom: 14px;">
+                            <h3 style="font-size: 0.9rem; margin-bottom: 6px;">🏛️ Назначения и инициатива</h3>
+                            <p style="font-size: 0.83rem;">Назначает премьер-министра и министров; возвращает
+                                законопроекты на пересмотр; выносит вопросы на референдум</p>
+                        </div>
+                        <div class="card-accent-top">
+                            <h3 style="font-size: 0.9rem; margin-bottom: 6px;">⚖️ Роспуск парламента</h3>
+                            <p style="font-size: 0.83rem;">Право распустить Национальное собрание после консультации с
+                                премьером и председателями палат</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card-accent-top" style="margin-bottom: 14px;">
+                            <h3 style="font-size: 0.9rem; margin-bottom: 6px;">🚨 Статья 16 — Чрезвычайные полномочия
+                            </h3>
+                            <p style="font-size: 0.83rem;">При угрозе институтам, независимости или целостности нации —
+                                президент берёт <strong>всю полноту власти</strong> (консультация с КС, парламент
+                                собирается автоматически)</p>
+                        </div>
+                        <div class="card-accent-top">
+                            <h3 style="font-size: 0.9rem; margin-bottom: 6px;">🌍 Внешняя политика</h3>
+                            <p style="font-size: 0.83rem;">По сложившейся традиции — прерогатива президента; глава
+                                правительства ведает внутренней политикой</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: PARLIAMENT UNDER 5TH REPUBLIC -->
+        <div class="slide slide-8" data-slide="8">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 350px; height: 350px; top: -80px; right: -80px; background: var(--accent-1); opacity: 0.08;">
+                </div>
+                <div class="blob"
+                    style="width: 250px; height: 250px; bottom: -60px; left: -40px; background: var(--accent-2); opacity: 0.06;">
+                </div>
+            </div>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 4</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 24px;"><span class="gradient-text">Парламент V
+                        Республики</span></h2>
+                <div class="grid-2 animate-in delay-2">
+                    <div class="card-glass">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 10px;">📋 Национальное собрание</h3>
+                        <ul class="styled-list">
+                            <li>Избирается на 5 лет всеобщим голосованием</li>
+                            <li>Принимает законы: гражданские права, налоги, судоустройство, выборы</li>
+                            <li>Определяет «общие принципы» в обороне, образовании, трудовом праве</li>
+                        </ul>
+                    </div>
+                    <div class="card-glass">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 10px;">📜 Сенат</h3>
+                        <ul class="styled-list">
+                            <li>Верхняя палата парламента</li>
+                            <li>Представительство территорий</li>
+                            <li>Совместное принятие конституционных поправок</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-accent-left animate-in delay-3"
+                    style="margin-top: 18px; border-image: linear-gradient(to bottom, #DC2626, #EF4444) 1;">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 6px;">Ключевое отличие от IV Республики</h3>
+                    <p style="font-size: 0.85rem;">Ограничение полномочий парламента: все вопросы за пределами строго
+                        определённого перечня решаются <strong>правительством и администрацией</strong> в порядке
+                        распорядительной власти</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: REFERENDUM 1962 -->
+        <div class="slide slide-9" data-slide="9">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 450px; height: 450px; top: -120px; right: -100px; background: var(--accent-1); opacity: 0.12;">
+                </div>
+                <div class="blob"
+                    style="width: 300px; height: 300px; bottom: -80px; left: -60px; background: var(--accent-2); opacity: 0.09;">
+                </div>
+                <div class="blob"
+                    style="width: 200px; height: 200px; top: 40%; left: 20%; background: #F1F5F9; opacity: 0.04;"></div>
+            </div>
+            <canvas class="particle-canvas-ambient" style="position: absolute; inset: 0; z-index: 1;"></canvas>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 5</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 24px;"><span class="gradient-text">Референдум 1962
+                        г.</span></h2>
+                <div class="grid-3 animate-in delay-2" style="margin-bottom: 20px;">
+                    <div class="card-glass" style="text-align: center;">
+                        <div class="stat-number text-glow" style="font-size: 2.2rem;">28.10.1962</div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Дата референдума</p>
+                    </div>
+                    <div class="card-glass" style="text-align: center;">
+                        <div class="stat-number text-glow" style="font-size: 2.2rem; color: #22C55E;">62,25%</div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Голосов «за»</p>
+                    </div>
+                    <div class="card-glass" style="text-align: center;">
+                        <div class="stat-number text-glow" style="font-size: 2.2rem;">1965</div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Первые прямые выборы</p>
+                    </div>
+                </div>
+                <div class="card-accent-left animate-in delay-3"
+                    style="border-image: linear-gradient(to bottom, #1E40AF, #DC2626) 1;">
+                    <h3 style="font-size: 0.95rem; margin-bottom: 6px;">Суть реформы</h3>
+                    <p style="font-size: 0.85rem;">Де Голль, <strong>минуя парламент</strong>, вынес на референдум
+                        поправку: президент избирается всеобщим прямым голосованием (ранее — коллегия выборщиков). Это
+                        вызвало единственную за историю V Республики «резолюцию порицания», но де Голль распустил
+                        Собрание. На выборах 1965 г. он победил во 2-м туре с 55,2% голосов</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: DE GAULLE'S 5 REFERENDUMS -->
+        <div class="slide slide-10" data-slide="10">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 350px; height: 350px; top: -80px; left: -80px; background: var(--accent-1); opacity: 0.08;">
+                </div>
+                <div class="blob"
+                    style="width: 250px; height: 250px; bottom: -60px; right: -40px; background: var(--accent-2); opacity: 0.06;">
+                </div>
+            </div>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 5</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 20px;"><span class="gradient-text">5 референдумов
+                        де Голля</span></h2>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div class="animate-in delay-2" style="display: flex; align-items: center; gap: 14px;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Сент. 1958</div>
+                        <div class="card-glass" style="flex: 1; padding: 10px 16px;">
+                            <p style="font-size: 0.85rem;">Проект новой Конституции — <span
+                                    style="color: #22C55E; font-weight: 700;">≈80% «да»</span></p>
+                        </div>
+                    </div>
+                    <div class="animate-in delay-3" style="display: flex; align-items: center; gap: 14px;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Янв. 1961</div>
+                        <div class="card-glass" style="flex: 1; padding: 10px 16px;">
+                            <p style="font-size: 0.85rem;">Самоопределение Алжира — <span
+                                    style="color: #22C55E; font-weight: 700;">одобрен</span></p>
+                        </div>
+                    </div>
+                    <div class="animate-in delay-4" style="display: flex; align-items: center; gap: 14px;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Апр. 1962</div>
+                        <div class="card-glass" style="flex: 1; padding: 10px 16px;">
+                            <p style="font-size: 0.85rem;">Эвианские соглашения — независимость Алжира — <span
+                                    style="color: #22C55E; font-weight: 700;">одобрен</span></p>
+                        </div>
+                    </div>
+                    <div class="animate-in delay-5" style="display: flex; align-items: center; gap: 14px;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Окт. 1962</div>
+                        <div class="card-glass" style="flex: 1; padding: 10px 16px;">
+                            <p style="font-size: 0.85rem;">Прямые выборы президента — <span
+                                    style="color: #22C55E; font-weight: 700;">62,25% «да»</span></p>
+                        </div>
+                    </div>
+                    <div class="animate-in delay-6" style="display: flex; align-items: center; gap: 14px;">
+                        <div class="timeline-dot" style="background: var(--accent-2);"></div>
+                        <div class="timeline-date">Апр. 1969</div>
+                        <div class="card-glass"
+                            style="flex: 1; padding: 10px 16px; border: 1px solid rgba(220,38,38,0.3);">
+                            <p style="font-size: 0.85rem;">Региональная реформа и реформа Сената — <span
+                                    style="color: #DC2626; font-weight: 700;">отклонён → отставка де Голля</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: FURTHER REFORMS -->
+        <div class="slide slide-11" data-slide="11">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 400px; height: 400px; top: -100px; right: -100px; background: var(--accent-1); opacity: 0.08;">
+                </div>
+                <div class="blob"
+                    style="width: 300px; height: 300px; bottom: -80px; left: -60px; background: var(--accent-2); opacity: 0.06;">
+                </div>
+            </div>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 6</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 20px;"><span class="gradient-text">Дальнейшие
+                        конституционные реформы</span></h2>
+                <div class="grid-2 animate-in delay-2" style="margin-bottom: 16px;">
+                    <div class="card-accent-top" style="border-image: linear-gradient(to right, #1E40AF, #3B82F6) 1;">
+                        <h3 style="font-size: 0.9rem; margin-bottom: 6px;">2000 — Квинквеннат</h3>
+                        <p style="font-size: 0.83rem;">Срок полномочий президента сокращён <strong>с 7 до 5
+                                лет</strong>. Цель — избежать «сосуществования» (cohabitation), синхронизировав с
+                            выборами в Собрание</p>
+                    </div>
+                    <div class="card-accent-top" style="border-image: linear-gradient(to right, #DC2626, #EF4444) 1;">
+                        <h3 style="font-size: 0.9rem; margin-bottom: 6px;">2008 — Модернизация институтов</h3>
+                        <p style="font-size: 0.83rem;">Не более <strong>2 сроков подряд</strong>; референдум по
+                            совместной инициативе; Конституционный совет — приоритетный вопрос конституционности;
+                            реформа КЭСЭ и ВСМ</p>
+                    </div>
+                </div>
+                <div class="card-glass animate-in delay-3">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 8px;">📊 Масштаб изменений (1960–2024)</h3>
+                    <div class="grid-3" style="gap: 16px; margin-top: 10px;">
+                        <div style="text-align: center;">
+                            <div class="stat-number text-glow" style="font-size: 1.8rem;">25</div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">конституционных пересмотров</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div class="stat-number text-glow" style="font-size: 1.8rem;">108</div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">статей (было 92)</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div class="stat-number text-glow" style="font-size: 1.8rem;">30</div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">статей остались без изменений</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: COHABITATION -->
+        <div class="slide slide-12" data-slide="12">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 350px; height: 350px; top: -80px; left: -80px; background: var(--accent-1); opacity: 0.08;">
+                </div>
+                <div class="blob"
+                    style="width: 250px; height: 250px; bottom: -60px; right: -40px; background: var(--accent-2); opacity: 0.06;">
+                </div>
+            </div>
+            <div class="content">
+                <p class="animate-in delay-1 uppercase-tracked"
+                    style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px;">Раздел 6</p>
+                <h2 class="animate-in delay-1" style="margin-bottom: 24px;"><span class="gradient-text">Феномен
+                        «сосуществования»</span></h2>
+                <p class="animate-in delay-2"
+                    style="font-size: 0.9rem; margin-bottom: 18px; color: var(--text-secondary);">Когда парламентское
+                    большинство противоположно президенту, он вынужден назначать премьера от оппозиции — это и есть
+                    <em>cohabitation</em>.
+                </p>
+                <div class="grid-3 animate-in delay-3">
+                    <div class="card-glass">
+                        <h3 style="font-size: 0.9rem; margin-bottom: 6px;">1986–1988</h3>
+                        <p style="font-size: 0.83rem;"><strong>Миттеран</strong> (левый) + <strong>Ширак</strong>
+                            (правый премьер)</p>
+                    </div>
+                    <div class="card-glass">
+                        <h3 style="font-size: 0.9rem; margin-bottom: 6px;">1993–1995</h3>
+                        <p style="font-size: 0.83rem;"><strong>Миттеран</strong> (левый) + <strong>Балладюр</strong>
+                            (правый премьер)</p>
+                    </div>
+                    <div class="card-glass">
+                        <h3 style="font-size: 0.9rem; margin-bottom: 6px;">1997–2002</h3>
+                        <p style="font-size: 0.83rem;"><strong>Ширак</strong> (правый) + <strong>Жоспен</strong> (левый
+                            премьер)</p>
+                    </div>
+                </div>
+                <div class="card-accent-left animate-in delay-4"
+                    style="margin-top: 18px; border-image: linear-gradient(to bottom, #1E40AF, #3B82F6) 1;">
+                    <p style="font-size: 0.85rem;">Квинквеннат 2000 г. был направлен на устранение cohabitation путём
+                        синхронизации президентских и парламентских выборов</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: IV vs V COMPARISON -->
+        <div class="slide slide-13" data-slide="13">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 400px; height: 400px; top: -100px; right: -100px; background: var(--accent-1); opacity: 0.08;">
+                </div>
+                <div class="blob"
+                    style="width: 300px; height: 300px; bottom: -80px; left: -60px; background: var(--accent-2); opacity: 0.06;">
+                </div>
+            </div>
+            <div class="content">
+                <h2 class="animate-in delay-1" style="margin-bottom: 20px;"><span class="gradient-text">IV vs V
+                        Республика</span></h2>
+                <div style="overflow-x: auto;" class="animate-in delay-2">
+                    <table
+                        style="width: 100%; border-collapse: separate; border-spacing: 0; font-size: clamp(0.75rem, 1.2vw, 0.9rem);">
+                        <thead>
+                            <tr>
+                                <th
+                                    style="padding: 12px 16px; text-align: left; background: rgba(30,64,175,0.3); border-radius: 12px 0 0 0; color: var(--text-primary); font-weight: 600;">
+                                    Параметр</th>
+                                <th
+                                    style="padding: 12px 16px; text-align: center; background: rgba(30,64,175,0.3); color: var(--text-primary); font-weight: 600;">
+                                    IV Республика</th>
+                                <th
+                                    style="padding: 12px 16px; text-align: center; background: rgba(220,38,38,0.3); border-radius: 0 12px 0 0; color: var(--text-primary); font-weight: 600;">
+                                    V Республика</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px 16px; border-bottom: 1px solid var(--glass-border);">Тип
+                                    правления</td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    Парламентский</td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    <strong>Полупрезидентский</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; border-bottom: 1px solid var(--glass-border);">Избрание
+                                    президента</td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    Парламентом</td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    <strong>Всеобщее голосование</strong> (с 1962)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; border-bottom: 1px solid var(--glass-border);">Роспуск
+                                    собрания</td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    Ограничен</td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    <strong>Право президента</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; border-bottom: 1px solid var(--glass-border);">
+                                    Чрезвычайные полномочия</td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    Отсутствуют</td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    <strong>Статья 16</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; border-bottom: 1px solid var(--glass-border);">Референдум
+                                </td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    Не применялся</td>
+                                <td
+                                    style="padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--glass-border);">
+                                    <strong>Активно (ст. 11)</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px;">Стабильность</td>
+                                <td style="padding: 10px 16px; text-align: center;">24 правительства за 12 лет</td>
+                                <td style="padding: 10px 16px; text-align: center;"><strong>Устойчивая система</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: CONCLUSION -->
+        <div class="slide slide-14" data-slide="14">
+            <div class="gradient-mesh">
+                <div class="blob"
+                    style="width: 500px; height: 500px; top: -100px; right: -100px; background: var(--accent-1); opacity: 0.15;">
+                </div>
+                <div class="blob"
+                    style="width: 300px; height: 300px; bottom: -80px; left: -60px; background: var(--accent-2); opacity: 0.12;">
+                </div>
+                <div class="blob"
+                    style="width: 200px; height: 200px; top: 40%; left: 15%; background: #F1F5F9; opacity: 0.05;"></div>
+            </div>
+            <canvas class="particle-canvas" style="position: absolute; inset: 0; z-index: 1;"></canvas>
+            <div class="content" style="text-align: center;">
+                <div class="animate-in delay-1"
+                    style="font-size: 80px; margin-bottom: 20px; animation: float 3s ease-in-out infinite;">⚜️</div>
+                <h1 class="animate-in delay-2"
+                    style="font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; background: linear-gradient(135deg, #F1F5F9, #94A3B8, #F1F5F9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px;">
+                    Итог</h1>
+                <p class="animate-in delay-3"
+                    style="color: rgba(255,255,255,0.6); font-size: clamp(0.85rem, 1.3vw, 1.1rem); max-width: 700px; margin: 0 auto;">
+                    Конституция 1958 года, рождённая в условиях кризиса, остаётся основой французского государственного
+                    устройства более 65 лет — пережив 25 пересмотров и 8 президентов</p>
+            </div>
+            <div class="flag-stripe">
+                <div class="blue"></div>
+                <div class="white"></div>
+                <div class="red"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
+        <div class="slide-dots" id="dots"></div>
+        <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
+        <span class="slide-counter" id="counter">1 / 14</span>
+    </div>
+
+    <script>
+        let current = 1;
+        const total = document.querySelectorAll('.slide').length;
+        const dotsContainer = document.getElementById('dots');
+        const counter = document.getElementById('counter');
+        for (let i = 1; i <= total; i++) { const dot = document.createElement('div'); dot.className = 'dot' + (i === 1 ? ' active' : ''); dot.onclick = () => goToSlide(i); dotsContainer.appendChild(dot); }
+        function goToSlide(n) { document.querySelector('.slide.active').classList.remove('active'); document.querySelector(`.slide[data-slide="${n}"]`).classList.add('active'); current = n; updateNav(); }
+        function changeSlide(dir) { let next = current + dir; if (next < 1) next = total; if (next > total) next = 1; goToSlide(next); }
+        function updateNav() { document.querySelectorAll('.dot').forEach((d, i) => { d.classList.toggle('active', i + 1 === current); }); counter.textContent = current + ' / ' + total; }
+        document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); } });
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+        document.addEventListener('touchend', (e) => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1); });
+
+        window.initParticles = function (canvas, options) {
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            const interactive = options.interactive !== false;
+            const count = options.count || (interactive ? 55 : 18);
+            let mx = -1000, my = -1000;
+            const rgb = getComputedStyle(document.documentElement).getPropertyValue('--glow-color-rgb').trim() || '30,64,175';
+            const [r, g, b] = rgb.split(',').map(Number);
+            const particles = Array.from({ length: count }, () => ({
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+                size: Math.random() * 2.5 + 0.8,
+                alpha: Math.random() * 0.35 + 0.1
+            }));
+            if (interactive) {
+                canvas.addEventListener('mousemove', (e) => { const rect = canvas.getBoundingClientRect(); mx = e.clientX - rect.left; my = e.clientY - rect.top; });
+                canvas.addEventListener('mouseleave', () => { mx = -1000; my = -1000; });
+            }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    if (interactive) {
+                        const dx = p.x - mx, dy = p.y - my;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) { const force = (120 - dist) / 120 * 2; p.vx += (dx / dist) * force * 0.1; p.vy += (dy / dist) * force * 0.1; }
+                    }
+                    p.vx *= 0.98; p.vy *= 0.98;
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha})`; ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+        };
+        document.querySelectorAll('.particle-canvas').forEach(c => { window.initParticles(c, { interactive: true, count: 55 }); });
+        document.querySelectorAll('.particle-canvas-ambient').forEach(c => { window.initParticles(c, { interactive: false, count: 18 }); });
+    </script>
+
+</body>
+
+</html>
